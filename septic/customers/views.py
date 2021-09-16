@@ -1,20 +1,55 @@
-from septic.customers.serializers import CustomerSerializer
-from django.shortcuts import render
-from django.shortcuts import render
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from .models import Customer
-from .serializer import EmployeeSerializer
-from django.contrib.auth.models import User
+from django.urls import reverse
+from datetime import date
 
-class CustomerList(APIView):
+def index(request):
+    user = request.user
 
-    permission_classes = [IsAuthenticated]
+    if not Customer.objects.filter(user_id=user.id).exists():
+        return redirect('create/')
+    else:
+        specific_customer = Customer.objects.get(user_id=user.id)
+        context = {
+            'user': user,
+            'specific_customer': specific_customer
+        }
+        print(user)
+        return render(request, 'customers/index.html', context)
 
-    def get(self, request):
-        customers = Customer.objects.all()
-        serializer = CustomerSerializer(customers, many=True)
-        return Response(serializer.data)
+def create(request):
+    if request.method == 'POST':
+        user = request.user
+        name = request.POST.get('name')
+        address = request.POST.get('address')
+        zip_code = request.POST.get('zip_code')
+        new_customer = Customer(
+            user_id=request.user.id,
+            name=name,
+            address=address,
+            zip_code=zip_code,
+        )
+        new_customer.save()
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        return render(request, 'customers/create.html')
+
+def edit(request, option):
+    specific_option = option
+    user = request.user
+    specific_customer = Customer.objects.get(user_id=user.id)
+    context = {
+        'specific_customer': specific_customer,
+        'specific_option': specific_option
+    }
+    if request.method == 'POST':
+        if specific_option == 1:
+            specific_customer.name = request.POST.get('name')
+            specific_customer.address = request.POST.get('address')
+            specific_customer.zip_code = request.POST.get('zip_code')
+            specific_customer.save()
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        return render(request, 'customers/edit.html', context)
+        
