@@ -1,7 +1,7 @@
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'septic_company',
+        'NAME': 'septic',
         'USER': 'root',
         'PASSWORD': '12password34',
         'HOST': '127.0.0.1',

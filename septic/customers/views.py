@@ -2,7 +2,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import Customer
 from django.urls import reverse
-from datetime import date
 
 def index(request):
     user = request.user
@@ -17,6 +16,7 @@ def index(request):
         }
         print(user)
         return render(request, 'customers/index.html', context)
+
 
 def create(request):
     if request.method == 'POST':
@@ -35,6 +35,7 @@ def create(request):
     else:
         return render(request, 'customers/create.html')
 
+
 def edit(request, option):
     specific_option = option
     user = request.user
@@ -45,11 +46,14 @@ def edit(request, option):
     }
     if request.method == 'POST':
         if specific_option == 1:
+            specific_customer.emergency_form = request.POST.get('emergency_form')
+            specific_customer.save()
+        elif specific_option == 2:
             specific_customer.name = request.POST.get('name')
             specific_customer.address = request.POST.get('address')
             specific_customer.zip_code = request.POST.get('zip_code')
             specific_customer.save()
+
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/edit.html', context)
-        

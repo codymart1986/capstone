@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('customers/', include('customers.urls')),
-    path('employees/', include('employees.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('customers/', include('customers.urls')),
+    path('employees/', include('employees.urls')),
+    path('', views.group_redirect, name='home'),
+    path('fullcalendar/', include('fullcalendar.urls'))
 ]
-
-

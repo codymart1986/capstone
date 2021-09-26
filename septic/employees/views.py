@@ -1,71 +1,33 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.apps import apps
 from django.urls import reverse
-from .models import Employee
-from django.http import JsonResponse
-from .models import Events
+from .models import Employees
+from django.apps import apps
 
 
 def create(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        zip_code = request.POST.get('zip_code')
         new_employee = Employees(
             user_id=request.user.id,
             name=name,
+            zip_code=zip_code
         )
         new_employee.save()
         return HttpResponseRedirect(reverse('employees:index'))
     else:
         return render(request, 'employees/create.html')
 
-def calendar(request):
-    all_events = Events.objects.all()
-    context = {
-        "events":all_events,
-    }
-    return render(request,'calendar.html',context)
-
-def all_events(request):                                                                                                 
-    all_events = Events.objects.all()                                                                                    
-    out = []                                                                                                             
-    for event in all_events:                                                                                             
-        out.append({                                                                                                     
-            'title': event.name,                                                                                         
-            'id': event.id,                                                                                              
-            'start': event.start.strftime("%m/%d/%Y, %H:%M:%S"),                                                         
-            'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),                                                             
-        })                                                                                                               
-                                                                                                                     
-    return JsonResponse(out, safe=False)  
-
-def add_event(request):
-    start = request.GET.get("start", None)
-    end = request.GET.get("end", None)
-    title = request.GET.get("title", None)
-    event = Events(name=str(title), start=start, end=end)
-    event.save()
-    data = {}
-    return JsonResponse(data)
-
-
-def update(request):
-    start = request.GET.get("start", None)
-    end = request.GET.get("end", None)
-    title = request.GET.get("title", None)
-    id = request.GET.get("id", None)
-    event = Events.objects.get(id=id)
-    event.start = start
-    event.end = end
-    event.name = title
-    event.save()
-    data = {}
-    return JsonResponse(data)
-
-
-def remove(request):
-    id = request.GET.get("id", None)
-    event = Events.objects.get(id=id)
-    event.delete()
-    data = {}
-    return JsonResponse(data)
+def index(request):
+    user = request.user
+    if not Employees.objects.filter(user_id=user.id).exists():
+        return redirect('create/')
+    else:
+        specific_employee = Employees.objects.get(user_id=user.id)
+        specific_employee.save()
+        context = {
+            'user': user,
+            'specific_employee': specific_employee
+        }
+        return render(request, 'employees/index.html', context)

@@ -24,3 +24,5 @@ class CustomUserForm(UserCreationForm):
                 customers = Group.objects.get(name="Customers")
                 customers.user_set.add(user)
         return user
+
+

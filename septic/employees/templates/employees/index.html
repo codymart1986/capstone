@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Home{% endblock %}
+{% block header %} <h1 class="display-1 text-center" id="title">Employee Home</h1> {% endblock %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+  <div class="row row-cols-auto d-flex justify-content-center">
+    <div class="col"></div>
+    <div class="col" id="custom-table">
+      <h1 class="display-3 text-center" id="subtitle">Hello, {{ user.username }}!</h1>
+  {% else %}
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'accounts:register' %}">Sign Up</a>
+    {% endif %}
+
+{% endblock %}

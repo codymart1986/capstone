@@ -42,7 +42,6 @@ input[type=password]{
 
 input[type=checkbox]{
     display: block;
-    /* Double-sized Checkboxes */
     -ms-transform: scale(3); /* IE */
     -moz-transform: scale(3); /* FF */
     -webkit-transform: scale(3); /* Safari and Chrome */
@@ -70,7 +69,7 @@ label {
 }
 
 .home-portal {
-    background-color: #2a2b2a;
+    background-color: #D12626;
 }
 
 .form-control {
