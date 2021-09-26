@@ -20,7 +20,7 @@ def all_events(request):
             'end': event.end.strftime("%m/%d/%Y, %H:%M:%S"),                                                             
         })                                                                                                               
                                                                                                                      
-    return JsonResponse(out, safe=False)  
+    return JsonResponse(out, safe=False)   
 
 def add_event(request):
     start = request.GET.get("start", None)

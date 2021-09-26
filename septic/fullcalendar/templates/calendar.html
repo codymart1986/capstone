@@ -1,5 +1,3 @@
-{% extends 'base.html' %}
-
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
@@ -16,9 +14,9 @@
                 header: {
                     left: 'prev,next today',
                     center: 'Job Board',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'month,agendaWeek'
                 },
-                events: '/all_events',
+                events: 'all_events',
                 selectable: true,
                 selectHelper: true,
                 editable: true,
@@ -30,14 +28,14 @@
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                         $.ajax({
                             type: "GET",
-                            url: '/add_event',
+                            url: 'add_event',
                             data: {'title': title, 'start': start, 'end': end},
                             dataType: "json",
                             success: function (data) {
                                 calendar.fullCalendar('refetchEvents');
                                 alert("Added Successfully");
                             },
-                            error: function (data) {
+                            failure: function (data) {
                                 alert('There is a problem!!!');
                             }
                         });
@@ -50,14 +48,14 @@
                     var id = event.id;
                     $.ajax({
                         type: "GET",
-                        url: '/update',
+                        url: 'update',
                         data: {'title': title, 'start': start, 'end': end, 'id': id},
                         dataType: "json",
                         success: function (data) {
                             calendar.fullCalendar('refetchEvents');
                             alert('Event Update');
                         },
-                        error: function (data) {
+                        failure: function (data) {
                             alert('There is a problem!!!');
                         }
                     });
@@ -70,14 +68,14 @@
                     var id = event.id;
                     $.ajax({
                         type: "GET",
-                        url: '/update',
+                        url: 'update',
                         data: {'title': title, 'start': start, 'end': end, 'id': id},
                         dataType: "json",
                         success: function (data) {
                             calendar.fullCalendar('refetchEvents');
                             alert('Event Update');
                         },
-                        error: function (data) {
+                        failure: function (data) {
                             alert('There is a problem!!!');
                         }
                     });
@@ -88,14 +86,14 @@
                         var id = event.id;
                         $.ajax({
                             type: "GET",
-                            url: '/remove',
+                            url: 'remove',
                             data: {'id': id},
                             dataType: "json",
                             success: function (data) {
                                 calendar.fullCalendar('refetchEvents');
                                 alert('Event Removed');
                             },
-                            error: function (data) {
+                            failure: function (data) {
                                 alert('There is a problem!!!');
                             }
                         });
@@ -109,7 +107,7 @@
 </head>
 <body>
 <br/>
-<h2 align="center"><a href="#">title</a></h2>
+<h2 align="center"><a href="#">Job Board</a></h2>
 <br/>
 <div class="container">
     <div id="calendar"></div>
