@@ -24,27 +24,17 @@
       <div class="mb-3">
         {% if specific_option == 1 %}
         <form action="{% url 'customers:edit' 1 %}" method="POST">
-        {% csrf_token %}
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Contact Us!</title>
-          </head>
-          <body>
-            <form action="/" class="decor">
-              <div class="form-left-decoration"></div>
-              <div class="form-right-decoration"></div>
-              <div class="circle"></div>
-              <div class="form-inner">
-                <h1>Contact us</h1>
-                <input type="text" placeholder="Username">
-                <input type="email" placeholder="Email">
-                <textarea placeholder="Emergency Description" rows="5"></textarea>
-                <button type="submit" href="/">Submit</button>
-              </div>
-            </form>
-          </body>
-        </html>
+          {% csrf_token %}
+            <p class="display-5 text-center" style="text-decoration:underline;">Name</p>
+            <input type="text" class="form-control" name="name" id="name" value="{{specific_customer.name}}"><br>
+            <p class="display-5 text-center" style="text-decoration:underline;">Address</p>
+            <input type="text" class="form-control" name="address" id="address" value="{{specific_customer.address}}"><br>
+            <p class="display-5 text-center" style="text-decoration:underline;">Zip Code</p>
+            <input type="text" class="form-control" name="zip_code" id="zip_code" value='{{ specific_customer.zip_code }}'><br>
+            <p class="display-5 text-center" style="text-decoration:underline;">Describe Emergency</p>
+            <input type="text" class="form-control" name="emergency" id="emergency" value='{{ specific_customer.emergency }}'><br>
+            <input type="submit" class="form-control" value="Submit">
+          </form>
         {% elif specific_option == 2 %}
         <form action="{% url 'customers:edit' 2 %}" method="POST">
         {% csrf_token %}

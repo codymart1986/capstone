@@ -45,10 +45,7 @@ def edit(request, option):
         'specific_option': specific_option
     }
     if request.method == 'POST':
-        if specific_option == 1:
-            specific_customer.emergency_form = request.POST.get('emergency_form')
-            specific_customer.save()
-        elif specific_option == 2:
+        if specific_option == 2:
             specific_customer.name = request.POST.get('name')
             specific_customer.address = request.POST.get('address')
             specific_customer.zip_code = request.POST.get('zip_code')
@@ -57,3 +54,19 @@ def edit(request, option):
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/edit.html', context)
+
+def emergency(request, option):
+    specific_option = option
+    user = request.user
+    specific_customer = Customer.objects.get(user_id=user.id)
+    context = {
+        'specific_customer': specific_customer,
+        'specific_option': specific_option
+    }
+    if request.method == 'POST':
+        if specific_option == 1:
+            specific_customer.name = request.POST.get('name')
+            specific_customer.address = request.POST.get('address')
+            specific_customer.zip_code = request.POST.get('zip_code')
+            specific_customer.emergency = request.POST.get('emergency')
+            specific_customer.save() 

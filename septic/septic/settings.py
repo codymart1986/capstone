@@ -74,6 +74,7 @@ WSGI_APPLICATION = 'septic.wsgi.application'
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
+# Removed all Password validators for ease of dev process
 
 # AUTH_PASSWORD_VALIDATORS = [
 #     {

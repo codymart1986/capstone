@@ -41,13 +41,11 @@ input[type=password]{
 }
 
 input[type=checkbox]{
-    display: block;
     -ms-transform: scale(3); /* IE */
     -moz-transform: scale(3); /* FF */
     -webkit-transform: scale(3); /* Safari and Chrome */
     -o-transform: scale(3); /* Opera */
     transform: scale(3);
-    margin: -2rem 0rem 0rem 18rem;
 }
 
 input[type=checkbox]:checked{
@@ -91,24 +89,6 @@ label {
     outline-offset: -8px;
 }
 
-.confirm-pickup-btn {
-    display: block;
-    width: 100%;
-    padding: 0.25rem 0.25rem;
-    font-size: .7rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #ccc;
-    background-color: #a22c29;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    outline-offset: -8px;
-}
 
 .helptext {
     font-family: 'Ubuntu', sans-serif;

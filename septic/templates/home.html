@@ -17,16 +17,10 @@
     {% else %}
       <p class="display-6 text-center" id="subtitle">You are not logged in</p>
       <p class="display-6 text-center" id="subtitle">Please log in or create an account</p>
-      <a href="{% url 'login' %}"><button class="form-control">
-        <p>Log In</p>
-      </button></a>
-      <a href="{% url 'accounts:register' %}"><button class="form-control">
-        <p>Sign Up</p>
-      </button></a>
+      <a href="{% url 'login' %}"><button class="form-control"><p>Log In</p></button></a>
+      <a href="{% url 'accounts:register' %}"><button class="form-control"><p>Sign Up</p></button></a>
     {% endif %}
     </div>
   <div class="col"></div>
 </div>
 {% endblock %}
-
-{# This is the home page that allows a logged out user to register or log in #}
