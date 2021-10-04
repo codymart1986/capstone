@@ -25,4 +25,5 @@ urlpatterns = [
     path('employees/', include('employees.urls')),
     path('', views.group_redirect, name='home'),
     path('fullcalendar/', include('fullcalendar.urls')),
+    path('workorder/', include('workorder.urls')),
 ]

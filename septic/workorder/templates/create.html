@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row row-cols-auto d-flex justify-content-center">
+    <div class="col"></div>
+    <div class="col"> 
+      <div class="mb-3">
+<form action="{% url 'workorder:create' %}" method="POST">
+    {% csrf_token %}
+      <p class="display-5 text-center" style="text-decoration:underline;">Name of Customer</p>
+      <input type="text" class="form-control" name="name" id="name"><br>
+      <p class="display-5 text-center" style="text-decoration:underline;">Hours On Site</p>
+      <input type="text" class="form-control" name="hours" id="hours"><br>
+      <p class="display-5 text-center" style="text-decoration:underline;">Job Description</p>
+      <input type="text" class="form-control" name="description" id="description"><br>
+      <p class="display-5 text-center" style="text-decoration:underline;">Details of Work Done</p>
+      <input type="text" class="form-control" name="body" id="body"><br>
+      <p class="display-5 text-center" style="text-decoration:underline;">Additional Work Needed</p>
+      <input type="text" class="form-control" name="recommendations" id="recommendations"><br>
+      <input type="submit" class="form-control" value="Submit">
+    </form>
+</div>
+</div>
+<div class="col"></div>
+</div>
+{% endblock %}
